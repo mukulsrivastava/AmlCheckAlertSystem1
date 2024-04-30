@@ -1,5 +1,7 @@
 plugins {
     id 'java'
+    id 'application'
+    id 'com.diffplug.spotless' version '6.0.4'
 }
 
 group = 'com.amlcheck'
@@ -9,11 +11,26 @@ repositories {
     mavenCentral()
 }
 
-dependencies {
-    testImplementation platform('org.junit:junit-bom:5.9.1')
-    testImplementation 'org.junit.jupiter:junit-jupiter'
+spotless {
+    java {
+        googleJavaFormat()
+    }
+}
+
+application {
+    mainClassName = 'AmlCheckAlertMain'
 }
 
 test {
-    useJUnitPlatform()
+    useTestNG()
+}
+
+dependencies {
+    implementation  'org.slf4j:slf4j-api:2.0.9'
+    implementation 'org.slf4j:slf4j-log4j12:2.0.9'
+    implementation 'org.apache.logging.log4j:log4j-core:2.22.1'
+    implementation 'org.apache.commons:commons-csv:1.10.0'
+    implementation 'org.testng:testng:6.14.3'
+    testImplementation "org.mockito:mockito-core:3.+"
+    implementation 'commons-io:commons-io:2.15.1'
 }
